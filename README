@@ -1,0 +1,18 @@
+% (C) 2006-2009 Josselin Noirel
+% 
+% Package cellspace: Ensuring a minimal spacing of table cells.
+%
+% This material is subject to the LaTeX Project Public License. See
+% http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html .
+
+This package is intended to allow automatic spacing out of
+the lines of an array.  People often complain about text touching the
+\hline of a tabular when it is too high or too deep.  For example (with
+the amsmath package) a \dfrac{1}{2} surrounded by \hlines touches the
+horizontal rules.  This package provides a modifier S to usual column
+types (l, c, r, p, m, and b) that ensures a minimal spacing between rules
+and cells of an array.
+
+v1.6: New feature as suggested by Bastien Roucaries - an option [math]
+has been introduced, which allows to use cellspace's features into
+matrix environments.
