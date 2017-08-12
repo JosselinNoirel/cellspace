@@ -1,23 +1,21 @@
-% (C) 2006-2009 Josselin Noirel
+% (C) 2006-2017 Josselin Noirel
 % 
 % Package cellspace: Ensuring a minimal spacing of table cells.
 %
 % This material is subject to the LaTeX Project Public License. See
 % http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html .
 %
-\def \@tempa $#1 #2 #3 #4 #5 #6 #7 ${%
-  \def \filedate    {#4}%
-  \def \fileversion {v#3}%
-}
-\@tempa $Id: cellspace.sty,v 1.6 2009/07/31 09:00:00 noirel Exp $
+\def \filedate    {2017/08/12}%
+\def \fileversion {v1.7}%
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{cellspace}%
   [\filedate \space \fileversion \space Spacing table cells (JN)]
 
-\RequirePackage{ifthen} % \newboolean, \ifthenelse
-\RequirePackage{array}  % \newcolumntype, \@{start,end}pbox
-\RequirePackage{calc}   % \setlength{<dimen>}{<expression>}
+\RequirePackage{ifthen}  % \newboolean, \ifthenelse
+\RequirePackage{array}   % \newcolumntype, \@{start,end}pbox
+\RequirePackage{calc}    % \setlength{<dimen>}{<expression>}
+\RequirePackage{xkeyval} % key=val options
 
 % 2. Check the definitions of \@startpbox and \@endpbox
 %    from array.sty
@@ -51,11 +49,12 @@
 
 % Options
 
-\DeclareOption{math}{\setboolean{cellspace@m}{true}}
-\DeclareOption{nomath}{\setboolean{cellspace@m}{false}}
+\DeclareOptionX{math}{\setboolean{cellspace@m}{true}}
+\DeclareOptionX{nomath}{\setboolean{cellspace@m}{false}}
+\define@key{cellspace.sty}{column}{\def\cellspace@column{#1}}
 
-\ExecuteOptions{nomath}
-\ProcessOptions
+\ExecuteOptionsX{nomath, column=S}
+\ProcessOptionsX
 
 % 4. Redefinitions
 
@@ -82,6 +81,7 @@
       \par
       % Save the depth of the last line
       \global \cellspace@lastdp = \prevdepth
+      \expandafter % v1.7 This expandafter is now important
       \color@endgroup
       % \ifcellspace@ is only locally true, so we need to expand it before
       % \egroup stops it action
@@ -128,13 +128,17 @@
   \def \env@matrix {%
     \hskip -\arraycolsep
     \let \@ifnextchar \new@ifnextchar
-    \array{*{\c@MaxMatrixCols}{>{$}Sc<{$}}@{}}%
-  }
+    \array{%
+          *{\c@MaxMatrixCols}%
+           {>{\bcolumn c\@nil$}c<{$\ecolumn}}@{}}}%
 \fi
 
 % 5. Defining a prefix
 
-\newcolumntype{S}[1]{>{\bcolumn #1\@nil}#1<{\ecolumn}}
+\expandafter
+\newcolumntype
+\expandafter{\cellspace@column}[1]%
+    {>{\bcolumn #1\@nil}#1<{\ecolumn}}
 
 \newcommand*{\bcolumn}{}
 \def \bcolumn #1#2\@nil {%
@@ -146,7 +150,7 @@
   \ifcellspace@lr
     \begingroup \lrbox {\@tempboxa}%
   \else
-    \setboolean{cellspace@}{true}%
+    \cellspace@true
   \fi
 }
 
