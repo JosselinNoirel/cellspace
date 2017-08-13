@@ -1,4 +1,4 @@
-% (C) 2006-2009 Josselin Noirel
+% (C) 2006-2017 Josselin Noirel
 % 
 % Package cellspace: Ensuring a minimal spacing of table cells.
 %
@@ -13,6 +13,10 @@ horizontal rules.  This package provides a modifier S to usual column
 types (l, c, r, p, m, and b) that ensures a minimal spacing between rules
 and cells of an array.
 
-v1.6: New feature as suggested by Bastien Roucaries - an option [math]
-has been introduced, which allows to use cellspace's features into
-matrix environments.
+v1.6: New feature as suggested by Bastien Roucaries: an option [math]
+      has been introduced, which allows to use cellspace's features into
+      matrix environments.
+
+v1.7: New features as suggested by Bastien Roucaries: (1) Possibility
+      to change the name of the column used for spacing; (2) Make the
+      math column independent of the colum name.

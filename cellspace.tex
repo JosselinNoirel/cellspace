@@ -1,15 +1,13 @@
-% (C) 2006-2009 Josselin Noirel
+% (C) 2006-2017 Josselin Noirel
 % 
 % Package cellspace: Ensuring a minimal spacing of table cells.
 %
 % This material is subject to the LaTeX Project Public License. See
 % http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html .
 %
-\def \tempa $#1 #2 #3 #4 #5 #6 #7 ${%
-  \def \filedate    {#4}%
-  \def \fileversion {v#3}%
-}
-\tempa $Id: cellspace.tex,v 1.6 2009/07/31 09:00:00 noirel Exp $
+\def \filedate    {2017/08/12}%
+\def \fileversion {v1.7}%
+
 \ProvidesFile{cellspace}%
   [\filedate \space \fileversion \space cellspace documentation (JN)]
 \pdfoutput = 1
@@ -114,7 +112,7 @@
   an array.
 \end{abstract}
 
-\section {Introduction}
+\section{Introduction}
 
 The mechanism used by \LaTeX{} to build tables---using struts---has an
 important consequence: the cells of a table that extend too much tend to
@@ -293,7 +291,6 @@ layout is obtained with \pack{booktabs}:
   \end{tabular}
 }
 
-
 The following example shows that how it works with paragraph columns.
 %
 \compare{%
@@ -359,6 +356,20 @@ As a~consequence, the \tex{amsmath} package can be loaded beforehand
 with other packages (such as \tex{empheq} or \tex{mathtools}), were an
 incompatibility to arise from one's loading it later.
 
+\section{Using a different column name}
+
+An other column name than \tex{S} can be used if \tex{S} conflicts
+with the user's own definitions or a package's.  A keyval option can
+be passed to the package to that effect;
+%
+\begin{verbatim}
+\usepackage[column=O]{cellspace}
+\end{verbatim}
+%
+can be used to provide cellspace's functionality through the \tex{O}
+column modifier instead of the \tex{S} column modifier.
+
+
 \section{Bugs and limitations}
 
 This package hasn't been heavily tested, so there may be plenty of bugs.
@@ -389,7 +400,7 @@ particular.
 \end{trivlist}
 
 \pack{tabls}\footnote{Thanks to Jim Hefferon for pointing this out.} is a
-package that does a similar job than \pack{cellspace}.
+package that does a similar job as \pack{cellspace}.
 The differences are: \pack{tabls} affects a whole table while
 \pack{cellspace} affects only the columns on which applies the modifier
 \tex{S}.  Each cell affected by \pack{cellspace} is affected in the same
@@ -403,137 +414,3 @@ distance to the rule is big enough).  As a last point, \pack{tabls}, as
 far as I can see, cannot work with \pack{array}.
 
 \end{document}
-
-Old documentation:
-
-
-                              DOCUMENTATION
-
-  Abstract - This package is intended to allow automatic spacing out of
-  the lines of an array.  People often complain about text touching the
-  \hline of a tabular when it is too high or too deep.  For example (with
-  the amsmath package) a \dfrac{1}{2} surrounded by \hlines touches the
-  horizontal rules.  Spacing out can be achieved through two mechanims
-
-  1. The optional argument of \\[<dimen>] but <dimen> is not necessarily
-     added it simply ensures that the distance between two rows will be at
-     least the normal depth (\dp\@arstrutbox) plus <dimen>.  It a cell is
-     deeper than this value, no spacing is actually done; furthermore even
-     if some spacing occurs it is not computed according the actual depth,
-     needing a fine tuning by hand by the user.
-
-  2. \noalign{\vspace{<dimen>}} that presents the drawback of breaking out
-     the vertical rules (even though, admittedly, vertical rules are often
-     overused).  Another disadvantage is that it spaces out everytime even
-     when no spacing is needed.  Again, the user has to intervene by hand
-     and check it out before taking any decision.
-
-  We believe a better solution can be easily provided through a modifier
-  of normal column types: S (for spacing of course).  A column l would be
-  now be declared Sl, c becomes Sc, r becomes Sr.  Special care is needed
-  for paragraph columns: p{<dimen>} becomes S{p{<dimen>}}, etc.
-
-  What happens is that if the text inside the column has a height that
-  makes it too close from the top of the cell (more precisely closer than
-  \cellspacetoplimit) then the height of the cell is increased of
-  \cellspacetoplimit.  Conversely, if the depth of a cell makes it too
-  close of the bottom of the cell (more precisely closer than
-  \cellspacebottomlimit), then \cellspacebottomlimit is added to the
-  actual depth to ensure a minimal spacing.  The values of
-  \cellspace{top,bottom}limit can be changed by
-
-    \setlength{\cellspacetoplimit}{<dimen>}
-    \setlength{\cellspacebottomlimit}{<dimen>}
-
-  Actually the modifier S acts very differently depending on if it is
-  working on a LR mode column (l, c, and r) or on a paragraph column
-  (p{<dimen>}, m{<dimen>}, and b{<dimen>}).  If you declare a new column
-  type and use S with it, S will assume that it is a LR mode column.  For
-  a paragraph column type, use in the preamble
-
-    \addparagraphcolumntypes{<paragraph types>}
-
-  Example file
-
-        \documentclass{article}
-
-        \usepackage{cellspace}
-        \usepackage{booktabs}
-
-        \begin{document}
-
-        \begin{tabular}[t]{l}
-          \hline
-          $\displaystyle \frac{1}{2}$ \\
-          \hline
-        \end{tabular}\quad
-        \begin{tabular}[t]{Sl}
-          \hline
-          $\displaystyle \frac{1}{2}$ \\
-          \hline
-        \end{tabular}
-
-        \vspace*{\stretch{1}}
-
-        \begin{tabular}[t]{l}
-          \toprule
-          $\displaystyle \frac{1}{2}$ \\
-          \bottomrule
-        \end{tabular}\quad
-        \begin{tabular}[t]{Sl}
-          \toprule
-          $\displaystyle \frac{1}{2}$ \\
-          \bottomrule
-        \end{tabular}
-
-        \vspace*{\stretch{1}}
-
-        \begin{tabular}[t]{p{5cm}}
-          \hline
-          $\displaystyle \frac{1}{2}$
-          A A A A A A A A A A A A A A
-          A A A A A A A A A A A A A A
-          A A A A A A A A A A A A A A
-          A A A A A A A A A A A A A A
-          A A A A A A A A A A A A A A
-          $\displaystyle \frac{1}{2}$ \\
-          \hline
-        \end{tabular}\quad
-        \begin{tabular}[t]{S{p{5cm}}}
-          \hline
-          $\displaystyle \frac{1}{2}$
-          A A A A A A A A A A A A A A
-          A A A A A A A A A A A A A A
-          A A A A A A A A A A A A A A
-          A A A A A A A A A A A A A A
-          A A A A A A A A A A A A A A
-          $\displaystyle \frac{1}{2}$ \\
-          \hline
-        \end{tabular}
-
-        \vspace*{\stretch{1}}
-
-        \begin{tabular}[t]{p{5cm}}
-          \toprule
-          $\displaystyle \frac{1}{2}$
-          A A A A A A A A A A A A A A
-          A A A A A A A A A A A A A A
-          A A A A A A A A A A A A A A
-          A A A A A A A A A A A A A A
-          A A A A A A A A A A A A A A
-          $\displaystyle \frac{1}{2}$ \\
-          \bottomrule
-        \end{tabular}\quad
-        \begin{tabular}[t]{S{p{5cm}}}
-          \toprule
-          $\displaystyle \frac{1}{2}$
-          A A A A A A A A A A A A A A
-          A A A A A A A A A A A A A A
-          A A A A A A A A A A A A A A
-          A A A A A A A A A A A A A A
-          A A A A A A A A A A A A A A
-          $\displaystyle \frac{1}{2}$ \\
-          \bottomrule
-        \end{tabular}
-
-        \end{document}
