@@ -20,17 +20,36 @@
 % 2. Check the definitions of \@startpbox and \@endpbox
 %    from array.sty
 
-\CheckCommand*{\@startpbox}[1]{%
-  \bgroup
-    \setlength\hsize{#1}%
-    \@arrayparboxrestore
-    \everypar{%
-      \vrule \@height \ht\@arstrutbox \@width \z@
-      \everypar{}%
-    }%
+\@ifpackagelater{array}{2018/12/30}{%
+      % New versions of \@startpbox / \@endpbox
+      % Includes a \color@...group
+      \CheckCommand*{\@startpbox}[1]{%
+        \bgroup
+          \color@begingroup
+            \setlength\hsize{#1}%
+            \@arrayparboxrestore
+            \everypar{%
+                  \vrule \@height \ht\@arstrutbox \@width \z@
+                  \everypar{}}%
+      }%
+      %
+      \CheckCommand*{\@endpbox}{\@finalstrut \@arstrutbox \color@endgroup \egroup \hfil}%
+}{%
+      % Older versions of \@startpbox / \@endpbox
+      \CheckCommand*{\@startpbox}[1]{%
+         \bgroup
+            \setlength\hsize{#1}%
+            \@arrayparboxrestore
+            \everypar{%
+                  \vrule \@height \ht\@arstrutbox \@width \z@
+                  \everypar{}%
+            }%
+      }%
+      %
+      \CheckCommand*{\@endpbox}{\@finalstrut \@arstrutbox \egroup \hfil}%
 }
 
-\CheckCommand*{\@endpbox}{\@finalstrut\@arstrutbox \egroup\hfil}
+  % New version of array.sty
 
 % 3. Declare registers and other variables
 
