@@ -1,12 +1,12 @@
-% (C) 2006-2017 Josselin Noirel
+% (C) 2006-2019 Josselin Noirel
 % 
 % Package cellspace: Ensuring a minimal spacing of table cells.
 %
 % This material is subject to the LaTeX Project Public License. See
 % http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html .
 %
-\def \filedate    {2017/08/12}%
-\def \fileversion {v1.7}%
+\def \filedate    {2019/03/11}%
+\def \fileversion {v1.8.1}%
 
 \ProvidesFile{cellspace}%
   [\filedate \space \fileversion \space cellspace documentation (JN)]
@@ -94,7 +94,9 @@
 \GetFileInfo{cellspace.sty}
 
 \title  {The \pack{cellspace} package}
-\author {Josselin Noirel}
+\author {Josselin Noirel\footnote{This document corresponds to version
+  \fileversion\ (\filedate) of \pack{\filename}.}\\%
+\url{https://github.com/JosselinNoirel/cellspace}}
 \date   {\filedate---\fileversion}
 
 \begin{document}
@@ -412,5 +414,12 @@ separated by a rule and using a systematic spacer \cmd{arraylinesep} when
 there is a rule (whereas \pack{cellspace} can leave a cell as is if the
 distance to the rule is big enough).  As a last point, \pack{tabls}, as
 far as I can see, cannot work with \pack{array}.
+
+\section{What's new}
+
+\begin{description}
+\item [v1.8.1] Package becomes aware of the latest version of the
+      array package
+\end{description}
 
 \end{document}

@@ -1,4 +1,4 @@
-% (C) 2006-2017 Josselin Noirel
+% (C) 2006-2019 Josselin Noirel
 % 
 % Package cellspace: Ensuring a minimal spacing of table cells.
 %
@@ -20,3 +20,6 @@ v1.6: New feature as suggested by Bastien Roucaries: an option [math]
 v1.7: New features as suggested by Bastien Roucaries: (1) Possibility
       to change the name of the column used for spacing; (2) Make the
       math column independent of the colum name.
+
+v1.8.1: Package becomes aware of the latest modifications of the array
+      package.  Also the GitHub project is referenced in the documentation.
