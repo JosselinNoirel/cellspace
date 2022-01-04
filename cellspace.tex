@@ -1,12 +1,12 @@
-% (C) 2006-2019 Josselin Noirel
+% (C) 2006-2021 Josselin Noirel
 % 
 % Package cellspace: Ensuring a minimal spacing of table cells.
 %
 % This material is subject to the LaTeX Project Public License. See
 % http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html .
 %
-\def \filedate    {2019/03/11}%
-\def \fileversion {v1.8.1}%
+\def \filedate    {2021/01/04}%
+\def \fileversion {v1.9.0}%
 
 \ProvidesFile{cellspace}%
   [\filedate \space \fileversion \space cellspace documentation (JN)]
@@ -371,7 +371,6 @@ be passed to the package to that effect;
 can be used to provide cellspace's functionality through the \tex{O}
 column modifier instead of the \tex{S} column modifier.
 
-
 \section{Bugs and limitations}
 
 This package hasn't been heavily tested, so there may be plenty of bugs.
@@ -418,8 +417,16 @@ far as I can see, cannot work with \pack{array}.
 \section{What's new}
 
 \begin{description}
+\item [v1.9.0] The new implementation solves a problem with empty
+      cells for paragraph-type columns (\tex{m}, \tex{p}, \tex{b}) by
+      testing whether \cmd{prevdepth} is greater than 1000~pt (see
+      example below). The package has now been made aware of the new
+      implementation of \cmd{@endpbox} of \tex{array} (again).
+
+\begin{tabular}{S{p{4cm}}} \hline \\ \hline \end{tabular}
+      
 \item [v1.8.1] Package becomes aware of the latest version of the
-      array package
+      array package.
 \end{description}
 
 \end{document}

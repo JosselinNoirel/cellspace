@@ -1,12 +1,12 @@
-% (C) 2006-2019 Josselin Noirel
+% (C) 2006-2021 Josselin Noirel
 % 
 % Package cellspace: Ensuring a minimal spacing of table cells.
 %
 % This material is subject to the LaTeX Project Public License. See
 % http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html .
 %
-\def \filedate    {2019/03/11}%
-\def \fileversion {v1.8.1}%
+\def \filedate    {2021/01/04}%
+\def \fileversion {v1.9.0}%
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{cellspace}%
@@ -20,6 +20,22 @@
 % 2. Check the definitions of \@startpbox and \@endpbox
 %    from array.sty
 
+\@ifpackagelater{array}{2021/04/20}{%
+      % New version of \@endpbox
+      % Includes a \par
+      \CheckCommand*{\@startpbox}[1]{%
+        \bgroup
+          \color@begingroup
+            \setlength\hsize{#1}%
+            \@arrayparboxrestore
+            \everypar{%
+                  \vrule \@height \ht\@arstrutbox \@width \z@
+                  \everypar{}}%
+      }%
+      %
+      \CheckCommand*{\@endpbox}%
+        {\@finalstrut \@arstrutbox \par \color@endgroup \egroup\hfil}%
+}{%
 \@ifpackagelater{array}{2018/12/30}{%
       % New versions of \@startpbox / \@endpbox
       % Includes a \color@...group
@@ -47,7 +63,7 @@
       }%
       %
       \CheckCommand*{\@endpbox}{\@finalstrut \@arstrutbox \egroup \hfil}%
-}
+}}
 
   % New version of array.sty
 
@@ -107,6 +123,7 @@
       \expandafter
     \egroup
     \ifcellspace@
+    \unless \ifdim \cellspace@lastdp = -1000pt %
       % Save the height of the first line
       \global \cellspace@firstht = \ht\@tempboxa
       \setbox \@tempboxa = \vbox {%
@@ -130,7 +147,7 @@
         \nointerlineskip
         \hbox{\vrule height 0pt depth \@tempdima width 0pt }%
       }%
-    \fi
+    \fi \fi
     \unvbox \@tempboxa
   \egroup
   \hfil
