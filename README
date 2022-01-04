@@ -1,4 +1,4 @@
-% (C) 2006-2019 Josselin Noirel
+% (C) 2006-2021 Josselin Noirel
 % 
 % Package cellspace: Ensuring a minimal spacing of table cells.
 %
@@ -23,3 +23,9 @@ v1.7: New features as suggested by Bastien Roucaries: (1) Possibility
 
 v1.8.1: Package becomes aware of the latest modifications of the array
       package.  Also the GitHub project is referenced in the documentation.
+
+v1.9.0: The new implementation solves a problem with empty
+      cells for paragraph-type columns (m, p, b) by
+      testing whether \prevdepth is greater than 1000~pt.
+      The package has now been made aware of the new
+      implementation of \@endpbox of array.
