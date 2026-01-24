@@ -1,4 +1,4 @@
-% (C) 2006-2025 Josselin Noirel
+% (C) 2006-2026 Josselin Noirel
 % 
 % Package cellspace: Ensuring a minimal spacing of table cells.
 %
@@ -30,4 +30,4 @@ v1.9.0: The new implementation solves a problem with empty
       The package has now been made aware of the new
       implementation of \@endpbox of array.
 
-v1.9.1: The package now defines \@startpbox@action.
+v1.9.1a: The package now defines \@startpbox@action.
